@@ -1,42 +1,286 @@
-#root {
-  max-width: 1280px;
+/* ——————————————————————————————————————————————————  
+   Add this in your HTML <head>:
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   —————————————————————————————————————————————————— */
+
+/* 1. Global box‑sizing so padding/margins don’t break layouts */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* 2. Base layout */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden; /* prevent any accidental horizontal scroll */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(to bottom, #fdfbfb, #ebedee);
+}
+
+/* 3. App container */
+.app {
+  width: 100%;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* 4. Headings & text */
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ff9900;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  color: #2e8b57;
+}
+
+blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin: 0.5rem auto 1.5rem;
+  color: #444;
+  padding: 0 1rem;
+}
+
+/* 5. Selectors */
+.selectors {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.selectors select {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 1rem;
+  appearance: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 280px;
+}
+
+/* 6. Buttons */
+button {
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.action-buttons button {
+  flex: 1 1 auto;
+  min-width: 160px;
+  max-width: 250px;
+}
+
+.emergency {
+  background: #ff3b30;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+}
+
+/* 7. Forecast cards */
+.forecast {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 2rem 0;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  -webkit-overflow-scrolling: touch;
+}
+
+.forecast-card {
+  flex: 0 0 auto;
+  min-width: 180px;
+  max-width: 240px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: scale(1.05);
+}
+
+.forecast-card .sun {
+  font-size: 3rem;
+  margin: 0.5rem 0;
+  color: #fbc02d;
+}
+
+.forecast-card strong {
+  font-size: 1rem;
+  color: #444;
+}
+
+.forecast-card p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+/* 8. Modals */
+.modal {
+  position: fixed;
+  inset: 0;              /* covers top/right/bottom/left = 0 */
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #fff;
+  color: #000;
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.modal-content label {
+  display: block;
+  margin: 1rem 0;
+  font-weight: 500;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.modal-content select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.modal-buttons button {
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background: #007aff;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.3);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.modal-buttons button:hover {
+  background: #005fcc;
+}
+
+.book-now {
+  background: #28a745;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.book-now:hover {
+  background: #1e7e34;
+}
+
+/* Sun modal “full-screen” tweaks */
+.sun-modal {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 20;
+}
+
+.full-sun-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.full-sun {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 9. Responsive tweaks for small screens */
+@media (max-width: 600px) {
+  .app {
+    padding: 0.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  h1 {
+    font-size: 1.8rem;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+  h2 {
+    font-size: 1.2rem;
   }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+  .selectors select {
+    font-size: 0.9rem;
+  }
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
 }

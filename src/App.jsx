@@ -1,34 +1,185 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React, { useState } from 'react'
 import './App.css'
 
+const forecast = Array.from({ length: 100 }, (_, i) => {
+  const date = new Date()
+  date.setDate(date.getDate() + i)
+  return {
+    id: i,
+    label: date.toDateString(),
+    temp: "82°F",
+    sky: "Sunny",
+    wind: "Light Winds",
+  }
+})
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [city, setCity] = useState("")
+  const [event, setEvent] = useState("")
+  const [showWeather, setShowWeather] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [showSunshineModal, setShowSunshineModal] = useState(false)
+  const [sunStage, setSunStage] = useState(0)
+
+  const ready = city && event
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="app">
+      <h1>HAPPYWEATHER.COM</h1>
+
+      <blockquote>
+        “If you visualize sunshine hard enough, the clouds will get self-conscious and move.”  
+        <br /> — Dan
+      </blockquote>
+
+      <div className="selectors">
+        <select value={city} onChange={(e) => setCity(e.target.value)}>
+          <option value="" disabled>Select city</option>
+          <option>Skydive Perris</option>
+          <option>Perris CA</option>
+          <option>Perris Valley Skydiving</option>
+        </select>
+
+        <select value={event} onChange={(e) => setEvent(e.target.value)}>
+          <option value="" disabled>Select event</option>
+          <option>P3 Big Way Camp</option>
+          <option>P3 100 Way Camp</option>
+          <option>P3 Spring Fling</option>
+          <option>P3 Power Play</option>
+          <option>P3 Sequential Camp</option>
+          <option>P3 Winter Fling</option>
+          <option>P3 Games</option>
+          <option>P3 Other</option>
+        </select>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
+
+      {!ready && (
+        <p style={{ fontStyle: 'italic', margin: '1rem 0' }}>
+          Select your city and event to get your perfect weather forecast ☀️
         </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      )}
+
+      {ready && !showWeather && (
+        <button onClick={() => setShowWeather(true)}>Show Weather</button>
+      )}
+
+      {showWeather && (
+        <>
+          <h2>Perfect Skydiving Weather!</h2>
+
+          <div className="action-buttons">
+            <button onClick={() => setShowModal(true)}>Report Inaccuracies</button>
+            <button
+              className="emergency"
+              onClick={() => {
+                setSunStage(0)
+                setShowSunshineModal(true)
+              }}
+            >
+              EMERGENCY SUNSHINE
+            </button>
+          </div>
+
+          <div className="forecast">
+            {forecast.map((f) => (
+              <div key={f.id} className="forecast-card">
+                <strong>{f.label}</strong>
+                <div className="sun">☀️</div>
+                <p>{f.sky}</p>
+                <p>{f.temp}, {f.wind}</p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h3>What do you see happening now?</h3>
+            <label>
+              Sky:
+              <select>
+                <option>Sun</option>
+                <option>Really Sunny</option>
+                <option>Very Sunny</option>
+              </select>
+            </label>
+            <label>
+              Wind:
+              <select>
+                <option>Calm Winds</option>
+                <option>No Winds</option>
+                <option>Light Winds</option>
+              </select>
+            </label>
+            <label>
+              Temperature:
+              <select>
+                <option>80 degrees</option>
+                <option>81 degrees</option>
+                <option>82 degrees</option>
+              </select>
+            </label>
+            <label>
+              Other (disabled):
+              <select disabled>
+                <option>Option unavailable</option>
+              </select>
+            </label>
+            <button onClick={() => setShowModal(false)}>Close</button>
+          </div>
+        </div>
+      )}
+
+      {showSunshineModal && (
+        <div className="modal">
+          <div className={`modal-content ${sunStage === 1 ? 'sun-modal' : ''}`}>
+            {sunStage === 0 && (
+              <>
+                <h3>Hold this above your head, and when ready, push the button.</h3>
+                <div className="modal-buttons">
+                  <button onClick={() => setSunStage(1)}>Button</button>
+                </div>
+              </>
+            )}
+
+            {sunStage === 1 && (
+              <div className="full-sun-wrapper">
+                <img src="/sun.png" alt="Sun" className="full-sun" />
+                <div className="modal-buttons" style={{ position: 'absolute', bottom: '5%' }}>
+                  <button onClick={() => setShowSunshineModal(false)}>It Worked!</button>
+                  <button onClick={() => setSunStage(2)}>Still Nothing</button>
+                </div>
+              </div>
+            )}
+
+            {sunStage === 2 && (
+              <>
+                <img src="/DanBc.png" alt="Dan BC" className="dan-image" />
+                <h3>“Visualizing is a powerful tool. Visualize sunshine now.”</h3>
+                <div className="modal-buttons">
+                  <button onClick={() => setShowSunshineModal(false)}>It Worked!</button>
+                  <button onClick={() => setSunStage(3)}>No Sun</button>
+                </div>
+              </>
+            )}
+
+            {sunStage === 3 && (
+              <>
+                <h3>We have one more thing to try. It is 100% effective.</h3>
+                <div className="modal-buttons">
+                  <a href="https://furycoaching.youcanbook.me" target="_blank" rel="noreferrer">
+                    <button className="book-now">Fool Proof Plan</button>
+                  </a>
+                  <button onClick={() => setShowSunshineModal(false)}>Nah, I'll live with the rain</button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
 
