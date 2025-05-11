@@ -1,9 +1,4 @@
-/* ——————————————————————————————————————————————————  
-   Add this in your HTML <head>:
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   —————————————————————————————————————————————————— */
-
-/* 1. Global box‑sizing so padding/margins don’t break layouts */
+/* GLOBAL RESET & BASE STYLES */
 *,
 *::before,
 *::after {
@@ -15,13 +10,12 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  overflow-x: hidden; /* prevent any accidental horizontal scroll */
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, Oxygen, Ubuntu, sans-serif;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
   background: linear-gradient(to bottom, #fdfbfb, #ebedee);
 }
 
-/* 3. App container */
+/* CONTAINER */
 .app {
   width: 100%;
   max-width: 900px;
@@ -31,7 +25,7 @@ html, body {
   color: #333;
 }
 
-/* 4. Headings & text */
+/* HEADINGS & TEXT */
 h1 {
   font-size: 2.2rem;
   font-weight: bold;
@@ -53,7 +47,7 @@ blockquote {
   padding: 0 1rem;
 }
 
-/* 5. Selectors */
+/* SELECTORS */
 .selectors {
   display: flex;
   justify-content: center;
@@ -74,7 +68,7 @@ blockquote {
   max-width: 280px;
 }
 
-/* 6. Buttons */
+/* BUTTONS */
 button {
   background: #007aff;
   color: white;
@@ -111,7 +105,15 @@ button:hover {
   box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
 }
 
-/* 7. Forecast cards */
+/* FORECAST */
+.forecast-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
 .forecast {
   display: flex;
   overflow-x: auto;
@@ -159,10 +161,32 @@ button:hover {
   font-size: 0.95rem;
 }
 
-/* 8. Modals */
+/* FORECAST ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: none;
+  color: #007aff;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.arrow.prev {
+  left: 0;
+}
+
+.arrow.next {
+  right: 0;
+}
+
+/* MODALS */
 .modal {
   position: fixed;
-  inset: 0;              /* covers top/right/bottom/left = 0 */
+  inset: 0;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
@@ -237,7 +261,7 @@ button:hover {
   background: #1e7e34;
 }
 
-/* Sun modal “full-screen” tweaks */
+/* EMERGENCY SUN FULLSCREEN */
 .sun-modal {
   position: fixed;
   inset: 0;
@@ -246,17 +270,19 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   z-index: 20;
+  padding: 0;
+  margin: 0;
+  overflow-y: auto;
 }
 
 .full-sun-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
-  overflow: hidden;
+  align-items: center;
+  background: black;
 }
 
 .full-sun {
@@ -265,22 +291,417 @@ button:hover {
   object-fit: cover;
 }
 
-/* 9. Responsive tweaks for small screens */
+.dan-image {
+  max-width: 90%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* RESPONSIVE */
 @media (max-width: 600px) {
   .app {
     padding: 0.5rem;
   }
+
   h1 {
     font-size: 1.8rem;
   }
+
   h2 {
     font-size: 1.2rem;
   }
+
   .selectors select {
     font-size: 0.9rem;
   }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;/* GLOBAL RESET & BASE STYLES */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, sans-serif;
+  background: linear-gradient(to bottom, #fdfbfb, #ebedee);
+}
+
+/* APP CONTAINER */
+.app {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* TEXT STYLES */
+h1 {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #ff9900;
+  margin-bottom: 0.5rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  color: #2e8b57;
+}
+
+blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin: 0.5rem auto 1.5rem;
+  color: #444;
+  padding: 0 1rem;
+}
+
+/* SELECTORS */
+.selectors {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.selectors select {
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  background: white;
+  font-size: 1rem;
+  appearance: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 280px;
+}
+
+/* BUTTONS */
+button {
+  background: #007aff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.3);
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.action-buttons button {
+  flex: 1 1 auto;
+  min-width: 160px;
+  max-width: 250px;
+}
+
+.emergency {
+  background: #ff3b30;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
+}
+
+/* FORECAST SECTION */
+.forecast-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+}
+
+.forecast {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem;
+  margin: 2rem 0;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 1rem;
+  background: white;
+  border-radius: 15px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  -webkit-overflow-scrolling: touch;
+}
+
+.forecast-card {
+  flex: 0 0 auto;
+  min-width: 180px;
+  max-width: 240px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: scale(1.05);
+}
+
+.forecast-card .sun {
+  font-size: 3rem;
+  margin: 0.5rem 0;
+  color: #fbc02d;
+}
+
+.forecast-card strong {
+  font-size: 1rem;
+  color: #444;
+}
+
+.forecast-card p {
+  margin: 0.3rem 0;
+  font-size: 0.95rem;
+}
+
+/* ARROWS */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  background: none;
+  color: #007aff;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.arrow.prev {
+  left: 0;
+}
+
+.arrow.next {
+  right: 0;
+}
+
+/* MODALS */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: #fff;
+  color: #000;
+  padding: 2rem 1rem;
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  text-align: center;
+}
+
+.modal-content label {
+  display: block;
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.modal-content select {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.modal-buttons button {
+  padding: 0.75rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  background: #007aff;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 122, 255, 0.3);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.modal-buttons button:hover {
+  background: #005fcc;
+}
+
+.book-now {
+  background: #28a745;
+  font-size: 1.1rem;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.book-now:hover {
+  background: #1e7e34;
+}
+
+/* SUN FULLSCREEN MODAL */
+.sun-modal {
+  position: fixed;
+  inset: 0;
+  background: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+}
+
+.full-sun-wrapper {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: black;
+}
+
+.full-sun {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* DAN IMAGE */
+.dan-image {
+  max-width: 90%;
+  height: auto;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* RESPONSIVE FOR SMALL SCREENS */
+@media (max-width: 600px) {
+  .app {
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  .selectors select {
+    font-size: 0.9rem;
+  }
+
   button {
     font-size: 0.9rem;
     padding: 0.5rem 1rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .forecast-card {
+    min-width: 140px;
+    max-width: 160px;
+    padding: 0.75rem;
+  }
+
+  .forecast-card .sun {
+    font-size: 2.4rem;
+  }
+
+  .forecast-card strong {
+    font-size: 0.95rem;
+  }
+
+  .forecast-card p {
+    font-size: 0.85rem;
+  }
+}
+
+    align-items: center;
+  }
+
+  .arrow {
+    font-size: 1.5rem;
+    padding: 0.3rem 0.8rem;
+  }
+}
+@media (max-width: 400px) {
+  .forecast-card {
+    min-width: 140px;
+    max-width: 150px;
+    padding: 0.5rem;
+  }
+
+  .forecast-card .sun {
+    font-size: 2rem;
+  }
+
+  .forecast-card strong {
+    font-size: 0.9rem;
+  }
+
+  .forecast-card p {
+    font-size: 0.8rem;
+  }
+
+  .forecast {
+    gap: 0.5rem;
+    padding: 0.5rem;
   }
 }
