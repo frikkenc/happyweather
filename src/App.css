@@ -5,7 +5,6 @@
   box-sizing: border-box;
 }
 
-/* 2. Base layout */
 html, body {
   margin: 0;
   padding: 0;
@@ -681,7 +680,7 @@ button:hover {
     padding: 0.3rem 0.8rem;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 450px) {
   .forecast-card {
     min-width: 140px;
     max-width: 150px;
