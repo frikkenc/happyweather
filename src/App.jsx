@@ -50,6 +50,7 @@ function App() {
       <div className="selectors">
         <select value={city} onChange={(e) => setCity(e.target.value)}>
           <option value="" disabled>Select city</option>
+          <option>Skydive Chicago</option>
           <option>Skydive Perris</option>
           <option>Perris CA</option>
           <option>Perris Valley Skydiving</option>
@@ -57,6 +58,8 @@ function App() {
 
         <select value={event} onChange={(e) => setEvent(e.target.value)}>
           <option value="" disabled>Select event</option>
+          <option>IL 250-way</option>
+          <option>2025 Vertical World Record</option>
           <option>P3 Big Way Camp</option>
           <option>P3 100 Way Camp</option>
           <option>P3 Spring Fling</option>
